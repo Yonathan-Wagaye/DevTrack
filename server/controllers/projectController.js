@@ -98,7 +98,7 @@ export const getProject = async (req, res) => {
 export const updateProject = async (req, res) => {
   try {
     const { id } = req.params
-    const { name, description, color } = req.body
+    const { name, description, color, github_repo_url } = req.body
 
     if (!id || isNaN(parseInt(id))) {
       return res.status(400).json({ message: 'Valid project ID is required' })
@@ -108,10 +108,26 @@ export const updateProject = async (req, res) => {
       return res.status(400).json({ message: 'Project name is required' })
     }
 
+    // Parse GitHub URL if provided
+    let github_owner = null
+    let github_repo_name = null
+    
+    if (github_repo_url) {
+      const GitHubService = await import('../services/githubService.js')
+      const parsed = GitHubService.default.parseRepoUrl(github_repo_url)
+      if (parsed) {
+        github_owner = parsed.owner
+        github_repo_name = parsed.repo
+      }
+    }
+
     const updateData = {
       name: name.trim(),
       description: description?.trim() || null,
-      color: color || '#3498db'
+      color: color || '#3498db',
+      github_repo_url: github_repo_url?.trim() || null,
+      github_owner,
+      github_repo_name
     }
 
     const updatedProject = await Project.update(parseInt(id), updateData, req.user.email)

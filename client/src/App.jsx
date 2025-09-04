@@ -10,6 +10,7 @@ import RegisterForm from './components/auth/RegisterForm'
 import Dashboard from './components/Dashboard'
 import CreateTaskPage from './pages/CreateTaskPage'
 import CreateProjectPage from './pages/CreateProjectPage'
+import EditProjectPage from './pages/EditProjectPage'
 import TasksPage from './pages/TasksPage'
 import ProjectsPage from './pages/ProjectsPage'
 import ProjectPage from './pages/ProjectPage'
@@ -69,11 +70,16 @@ function AppContent() {
               <ProjectsPage />
             </ProtectedRoute>
           } />
-          <Route path='/projects/create' element={
-            <ProtectedRoute>
-              <CreateProjectPage />
-            </ProtectedRoute>
-          } />
+                              <Route path='/projects/create' element={
+                      <ProtectedRoute>
+                        <CreateProjectPage />
+                      </ProtectedRoute>
+                    } />
+                    <Route path='/projects/:id/edit' element={
+                      <ProtectedRoute>
+                        <EditProjectPage />
+                      </ProtectedRoute>
+                    } />
           <Route path='/projects/:id' element={
             <ProtectedRoute>
               <ProjectPage />

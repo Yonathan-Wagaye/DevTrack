@@ -35,7 +35,8 @@ const projectSlice = createSlice({
       state.formData = {
         name: '',
         description: '',
-        color: '#3498db'
+        color: '#3498db',
+        github_repo_url: ''
       }
       state.formError = null
     },
@@ -93,7 +94,7 @@ const projectSlice = createSlice({
       .addCase(createProject.fulfilled, (state, action) => {
         state.isFormLoading = false
         state.projects.unshift(action.payload)
-        state.formData = { name: '', description: '', color: '#3498db' }
+        state.formData = { name: '', description: '', color: '#3498db', github_repo_url: '' }
       })
       .addCase(createProject.rejected, (state, action) => {
         state.isFormLoading = false

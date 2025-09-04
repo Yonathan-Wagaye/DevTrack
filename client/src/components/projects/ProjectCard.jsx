@@ -1,7 +1,9 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import '../../styles/ProjectCard.css'
 
 const ProjectCard = ({ project, onClick }) => {
+  const navigate = useNavigate()
   const {
     id,
     name,
@@ -21,6 +23,11 @@ const ProjectCard = ({ project, onClick }) => {
 
   const completionPercentage = task_count > 0 ? Math.round((completed_tasks / task_count) * 100) : 0
 
+  const handleEditClick = (e) => {
+    e.stopPropagation() // Prevent card click
+    navigate(`/projects/${id}/edit`)
+  }
+
   return (
     <div 
       className="project-card" 
@@ -34,7 +41,16 @@ const ProjectCard = ({ project, onClick }) => {
             <p className="project-description">{description}</p>
           )}
         </div>
-        <div className="project-color" style={{ backgroundColor: color }}></div>
+        <div className="project-actions">
+          <button 
+            className="edit-project-button"
+            onClick={handleEditClick}
+            title="Edit Project"
+          >
+            ✏️
+          </button>
+          <div className="project-color" style={{ backgroundColor: color }}></div>
+        </div>
       </div>
 
       <div className="project-stats">
