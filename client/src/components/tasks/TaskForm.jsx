@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateFormField, resetForm, clearFormError } from '../../redux/slices/taskSlice'
 import { createTask } from '../../redux/thunks/taskThunks'
+import { fetchProjects } from '../../redux/thunks/projectThunks'
 import '../../styles/TaskForm.css'
 
 const TaskForm = ({ onSuccess, onCancel }) => {
@@ -11,10 +12,24 @@ const TaskForm = ({ onSuccess, onCancel }) => {
     formData, 
     isFormLoading, 
     formError, 
-    projects, 
     priorities, 
     statuses 
   } = useSelector(state => state.tasks)
+  
+  // Get projects from the project slice instead of task slice
+  const { projects } = useSelector(state => state.projects)
+
+  // Fetch projects when component mounts
+  useEffect(() => {
+    dispatch(fetchProjects())
+  }, [dispatch])
+
+  // Set default project when projects are loaded
+  useEffect(() => {
+    if (projects.length > 0 && !formData.project) {
+      dispatch(updateFormField({ field: 'project', value: projects[0].id.toString() }))
+    }
+  }, [projects, formData.project, dispatch])
 
   // Handle input changes
   const handleChange = (e) => {

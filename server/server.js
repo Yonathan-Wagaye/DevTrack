@@ -7,6 +7,7 @@ import taskRoutes from './routes/taskRoutes.js'
 import authRoutes from './routes/authRoutes.js'
 import projectRoutes from './routes/projectRoutes.js'
 import commitRoutes from './routes/commitRoutes.js'
+import dashboardRoutes from './routes/dashboardRoutes.js'
 
 // Import middleware
 import { authenticateToken } from './middleware/auth.js'
@@ -46,6 +47,7 @@ app.use('/api/auth', authRoutes)
 app.use('/api/tasks', taskRoutes)
 app.use('/api/projects', projectRoutes)
 app.use('/api/commits', commitRoutes)
+app.use('/api/dashboard', dashboardRoutes)
 
 // Protected route example
 app.get('/api/protected', authenticateToken, (req, res) => {

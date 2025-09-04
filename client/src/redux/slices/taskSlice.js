@@ -12,7 +12,7 @@ const initialState = {
     description: '',
     priority: 'medium',
     status: 'pending',
-    project: '1', // Default to DevTrack project
+    project: '', // Will be set when projects are loaded
     dueDate: '',
     timeEstimate: ''
   },
@@ -21,13 +21,7 @@ const initialState = {
   isFormLoading: false,
   formError: null,
   
-  // Project options (hardcoded for now)
-  projects: [
-    { id: '1', name: 'DevTrack' },
-    { id: '2', name: 'Personal' },
-    { id: '3', name: 'Work' },
-    { id: '4', name: 'Learning' }
-  ],
+  // Projects are now fetched from the project slice
   
   // Priority options
   priorities: [

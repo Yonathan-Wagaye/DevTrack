@@ -1,12 +1,38 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { fetchDashboardStats } from '../redux/thunks/dashboardThunks'
+import LoadingSpinner from './common/LoadingSpinner'
 import '../styles/Dashboard.css'
 
 const Dashboard = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  
   // Get user data from Redux
   const { user } = useSelector(state => state.auth)
+  const { stats, isLoading, error } = useSelector(state => state.dashboard)
+
+  // Fetch dashboard data when component mounts
+  useEffect(() => {
+    dispatch(fetchDashboardStats())
+  }, [dispatch])
+
+  if (isLoading) {
+    return <LoadingSpinner message="Loading dashboard..." />
+  }
+
+  if (error) {
+    return (
+      <div className="dashboard-error">
+        <h2>Error loading dashboard</h2>
+        <p>{error}</p>
+        <button onClick={() => dispatch(fetchDashboardStats())}>
+          Try Again
+        </button>
+      </div>
+    )
+  }
 
   return (
     <div className="dashboard">
@@ -33,154 +59,169 @@ const Dashboard = () => {
         <div className="stat-card">
           <div className="stat-icon">📊</div>
           <div className="stat-content">
-            <h3>Active Projects</h3>
-            <p className="stat-number">5</p>
-            <p className="stat-label">In Progress</p>
+            <h3>Total Projects</h3>
+            <p className="stat-number">{stats.projects.total}</p>
+            <p className="stat-label">Created</p>
+          </div>
+        </div>
+
+        <div className="stat-card">
+          <div className="stat-icon">📋</div>
+          <div className="stat-content">
+            <h3>Total Tasks</h3>
+            <p className="stat-number">{stats.tasks.total}</p>
+            <p className="stat-label">All Time</p>
           </div>
         </div>
 
         <div className="stat-card">
           <div className="stat-icon">✅</div>
           <div className="stat-content">
-            <h3>Tasks Completed</h3>
-            <p className="stat-number">12</p>
-            <p className="stat-label">Today</p>
+            <h3>Completed Tasks</h3>
+            <p className="stat-number">{stats.tasks.completed}</p>
+            <p className="stat-label">Done</p>
           </div>
         </div>
 
         <div className="stat-card">
-          <div className="stat-icon">⏱️</div>
+          <div className="stat-icon">🔄</div>
           <div className="stat-content">
-            <h3>Time Logged</h3>
-            <p className="stat-number">6h 30m</p>
-            <p className="stat-label">Today</p>
-          </div>
-        </div>
-
-        <div className="stat-card">
-          <div className="stat-icon">🔥</div>
-          <div className="stat-content">
-            <h3>Productivity</h3>
-            <p className="stat-number">85%</p>
-            <p className="stat-label">On Track</p>
+            <h3>In Progress</h3>
+            <p className="stat-number">{stats.tasks.in_progress}</p>
+            <p className="stat-label">Active</p>
           </div>
         </div>
       </div>
 
       {/* Main Content Grid */}
       <div className="dashboard-grid">
-        {/* Today's Tasks */}
+        {/* Recent Tasks */}
         <div className="dashboard-card">
           <div className="card-header">
-            <h2>📋 Today's Tasks</h2>
+            <h2>📋 Recent Tasks</h2>
             <button className="add-button" onClick={() => navigate('/tasks/create')}>
               + Add Task
             </button>
           </div>
           <div className="card-content">
-            <div className="task-item">
-              <input type="checkbox" />
-              <span className="task-text">Review pull request #123</span>
-              <span className="task-priority high">High</span>
-            </div>
-            <div className="task-item">
-              <input type="checkbox" checked />
-              <span className="task-text">Update documentation</span>
-              <span className="task-priority medium">Medium</span>
-            </div>
-            <div className="task-item">
-              <input type="checkbox" />
-              <span className="task-text">Fix login bug</span>
-              <span className="task-priority low">Low</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Active Projects */}
-        <div className="dashboard-card">
-          <div className="card-header">
-            <h2>🚀 Active Projects</h2>
-            <button className="add-button">+ New Project</button>
-          </div>
-          <div className="card-content">
-            <div className="project-item">
-              <div className="project-info">
-                <h4>DevTrack App</h4>
-                <p>Personal productivity dashboard</p>
-              </div>
-              <div className="project-progress">
-                <div className="progress-bar">
-                  <div className="progress-fill" style={{ width: '75%' }}></div>
+            {stats.recent_tasks.length > 0 ? (
+              stats.recent_tasks.map((task) => (
+                <div key={task.id} className="task-item">
+                  <input 
+                    type="checkbox" 
+                    checked={task.status === 'completed'} 
+                    readOnly 
+                  />
+                  <span className="task-text">{task.title}</span>
+                  <span className={`task-priority ${task.priority}`}>
+                    {task.priority}
+                  </span>
+                  <span className="task-project">
+                    {task.project_name}
+                  </span>
                 </div>
-                <span className="progress-text">75%</span>
+              ))
+            ) : (
+              <div className="empty-state">
+                <p>No tasks yet</p>
+                <button 
+                  className="create-first-button"
+                  onClick={() => navigate('/tasks/create')}
+                >
+                  Create your first task
+                </button>
               </div>
-            </div>
-            <div className="project-item">
-              <div className="project-info">
-                <h4>E-commerce API</h4>
-                <p>Backend service development</p>
-              </div>
-              <div className="project-progress">
-                <div className="progress-bar">
-                  <div className="progress-fill" style={{ width: '30%' }}></div>
+            )}
+          </div>
+        </div>
+
+        {/* Recent Projects */}
+        <div className="dashboard-card">
+          <div className="card-header">
+            <h2>🚀 Recent Projects</h2>
+            <button className="add-button" onClick={() => navigate('/projects/create')}>
+              + New Project
+            </button>
+          </div>
+          <div className="card-content">
+            {stats.recent_projects.length > 0 ? (
+              stats.recent_projects.map((project) => (
+                <div 
+                  key={project.id} 
+                  className="project-item"
+                  onClick={() => navigate(`/projects/${project.id}`)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <div className="project-info">
+                    <h4>{project.name}</h4>
+                    <p>{project.description || 'No description'}</p>
+                  </div>
+                  <div className="project-color-indicator">
+                    <div 
+                      className="color-dot" 
+                      style={{ backgroundColor: project.color }}
+                    ></div>
+                  </div>
                 </div>
-                <span className="progress-text">30%</span>
+              ))
+            ) : (
+              <div className="empty-state">
+                <p>No projects yet</p>
+                <button 
+                  className="create-first-button"
+                  onClick={() => navigate('/projects/create')}
+                >
+                  Create your first project
+                </button>
               </div>
-            </div>
+            )}
           </div>
         </div>
 
-        {/* Time Tracking */}
+        {/* Quick Summary */}
         <div className="dashboard-card">
           <div className="card-header">
-            <h2>⏱️ Time Tracking</h2>
+            <h2>📈 Quick Summary</h2>
           </div>
           <div className="card-content">
-            <div className="time-summary">
-              <div className="time-display">
-                <span className="time-number">06:30</span>
-                <span className="time-label">Hours Today</span>
+            <div className="summary-grid">
+              <div className="summary-item">
+                <span className="summary-icon">📋</span>
+                <div className="summary-content">
+                  <p className="summary-number">{stats.tasks.pending}</p>
+                  <p className="summary-label">Pending Tasks</p>
+                </div>
               </div>
-              <div className="time-actions">
-                <button className="start-button">Start Timer</button>
-                <button className="stop-button" disabled>Stop</button>
+              <div className="summary-item">
+                <span className="summary-icon">🔄</span>
+                <div className="summary-content">
+                  <p className="summary-number">{stats.tasks.in_progress}</p>
+                  <p className="summary-label">In Progress</p>
+                </div>
               </div>
-            </div>
-            <div className="time-breakdown">
-              <p><strong>Project Breakdown:</strong></p>
-              <p>• DevTrack: 4h 15m</p>
-              <p>• E-commerce: 2h 15m</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Recent Activity */}
-        <div className="dashboard-card">
-          <div className="card-header">
-            <h2>📈 Recent Activity</h2>
-          </div>
-          <div className="card-content">
-            <div className="activity-item">
-              <span className="activity-icon">💾</span>
-              <div className="activity-content">
-                <p>Committed to DevTrack repository</p>
-                <span className="activity-time">2 hours ago</span>
+              <div className="summary-item">
+                <span className="summary-icon">✅</span>
+                <div className="summary-content">
+                  <p className="summary-number">{stats.tasks.completed}</p>
+                  <p className="summary-label">Completed</p>
+                </div>
               </div>
-            </div>
-            <div className="activity-item">
-              <span className="activity-icon">✅</span>
-              <div className="activity-content">
-                <p>Completed task: Update documentation</p>
-                <span className="activity-time">4 hours ago</span>
+              <div className="summary-item">
+                <span className="summary-icon">📊</span>
+                <div className="summary-content">
+                  <p className="summary-number">{stats.projects.total}</p>
+                  <p className="summary-label">Projects</p>
+                </div>
               </div>
             </div>
-            <div className="activity-item">
-              <span className="activity-icon">🚀</span>
-              <div className="activity-content">
-                <p>Started new project: E-commerce API</p>
-                <span className="activity-time">1 day ago</span>
+            {stats.tasks.total > 0 && (
+              <div className="completion-rate">
+                <p>
+                  <strong>Completion Rate:</strong>{' '}
+                  {Math.round((stats.tasks.completed / stats.tasks.total) * 100)}%
+                </p>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
@@ -191,17 +232,17 @@ const Dashboard = () => {
           <span className="action-icon">➕</span>
           <span>New Task</span>
         </button>
-        <button className="quick-action-btn">
+        <button className="quick-action-btn" onClick={() => navigate('/projects/create')}>
           <span className="action-icon">🚀</span>
           <span>New Project</span>
         </button>
-        <button className="quick-action-btn">
-          <span className="action-icon">⏱️</span>
-          <span>Start Timer</span>
+        <button className="quick-action-btn" onClick={() => navigate('/tasks')}>
+          <span className="action-icon">📋</span>
+          <span>All Tasks</span>
         </button>
-        <button className="quick-action-btn">
+        <button className="quick-action-btn" onClick={() => navigate('/projects')}>
           <span className="action-icon">📊</span>
-          <span>View Reports</span>
+          <span>All Projects</span>
         </button>
       </div>
     </div>
