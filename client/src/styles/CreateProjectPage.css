@@ -1,0 +1,113 @@
+.create-project-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+  color: #ffffff;
+  padding-top: 6rem;
+}
+
+.page-header {
+  background: rgba(255, 107, 53, 0.1);
+  border: 1px solid #ff6b35;
+  border-radius: 12px;
+  margin: 0 1rem 2rem 1rem;
+  color: white;
+  padding: 2rem;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.header-nav {
+  flex-shrink: 0;
+}
+
+.back-button {
+  background: rgba(255, 107, 53, 0.1);
+  border: 1px solid #ff6b35;
+  color: #ff6b35;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  font-size: 0.9rem;
+}
+
+.back-button:hover {
+  background: #ff6b35;
+  color: white;
+  transform: translateX(-2px);
+}
+
+.header-text {
+  flex: 1;
+}
+
+.header-text h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #ffffff 0%, #ff6b35 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-text p {
+  font-size: 1.1rem;
+  color: #cccccc;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.page-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .header-text {
+    order: 1;
+  }
+
+  .header-nav {
+    order: 2;
+    margin-top: 1rem;
+  }
+
+  .header-text h1 {
+    font-size: 2rem;
+  }
+
+  .page-content {
+    padding: 0 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-text h1 {
+    font-size: 1.75rem;
+  }
+
+  .back-button {
+    width: 100%;
+    text-align: center;
+  }
+}

@@ -1,0 +1,427 @@
+.project-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+  color: #ffffff;
+  padding-top: 6rem;
+}
+
+/* Project Page Header Styles */
+.project-page-header {
+  background: rgba(255, 107, 53, 0.1);
+  border: 1px solid #ff6b35;
+  border-radius: 12px;
+  margin: 0 1rem 2rem 1rem;
+  color: white;
+  padding: 2rem;
+}
+
+.project-page-header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Header Top Row: Back Button (left) + Actions (right) */
+.project-page-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.project-page-back-nav {
+  /* Position at upper left corner */
+}
+
+.project-page-back-button {
+  background: rgba(255, 107, 53, 0.1);
+  border: 1px solid #ff6b35;
+  color: #ff6b35;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  font-size: 0.9rem;
+}
+
+.project-page-back-button:hover {
+  background: #ff6b35;
+  color: white;
+  transform: translateX(-2px);
+}
+
+.project-page-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.project-page-edit-btn,
+.project-page-add-task-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  font-size: 0.9rem;
+}
+
+.project-page-edit-btn {
+  background-color: rgba(255, 107, 53, 0.1);
+  border: 2px solid #ff6b35;
+  color: #ff6b35;
+}
+
+.project-page-edit-btn:hover {
+  background-color: #ff6b35;
+  color: white;
+}
+
+.project-page-add-task-btn {
+  background-color: #ff6b35;
+  color: white;
+  border: 2px solid #ff6b35;
+}
+
+.project-page-add-task-btn:hover {
+  background-color: #e55a2b;
+  border-color: #e55a2b;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+}
+
+/* Project Title Section - Left Aligned */
+.project-page-title-section {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.project-page-title-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.project-page-color-indicator {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+
+.project-page-title-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.project-page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+  background: linear-gradient(135deg, #ffffff 0%, #ff6b35 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.project-page-description {
+  font-size: 1.1rem;
+  color: #cccccc;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Project Stats - Immediately Below Title */
+.project-page-stats {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.project-page-stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: rgba(255, 107, 53, 0.1);
+  border: 1px solid rgba(255, 107, 53, 0.3);
+  padding: 1.25rem 1rem;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  min-width: 120px;
+  max-width: 140px;
+  width: 100%;
+  height: 100px;
+  transition: all 0.3s ease;
+}
+
+.project-page-stat-card:hover {
+  background: rgba(255, 107, 53, 0.15);
+  border-color: rgba(255, 107, 53, 0.5);
+  transform: translateY(-2px);
+}
+
+.project-page-stat-number {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.project-page-stat-label {
+  font-size: 0.8rem;
+  color: #cccccc;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.page-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.error-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+.error-content {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #333333;
+  padding: 3rem;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.error-content h2 {
+  color: #e74c3c;
+  margin-bottom: 1rem;
+}
+
+.error-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.error-actions button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.error-actions button:first-child {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.error-actions button.secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid #333333;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+  color: #cccccc;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+.tasks-kanban {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.status-column {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid #333333;
+  border-radius: 12px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.column-header {
+  padding: 1rem 1.5rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.column-header.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.column-header.in-progress {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.column-header.completed {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.column-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.task-count {
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.tasks-list {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 200px;
+  transition: all 0.3s ease;
+}
+
+.tasks-list.drag-over {
+  background-color: rgba(255, 107, 53, 0.05);
+  border: 2px dashed #ff6b35;
+  border-radius: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .project-page-header {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .project-page-header-top {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .project-page-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .project-page-edit-btn,
+  .project-page-add-task-btn {
+    width: 100%;
+  }
+
+  .project-page-stats {
+    gap: 1.5rem;
+    justify-content: center;
+  }
+
+  .project-page-stat-card {
+    min-width: 100px;
+    max-width: 120px;
+    height: 80px;
+    padding: 1rem 0.75rem;
+  }
+
+  .project-page-stat-number {
+    font-size: 1.6rem;
+  }
+
+  .project-page-stat-label {
+    font-size: 0.75rem;
+  }
+
+  .tasks-kanban {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .project-page-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-page-title-row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .project-page-color-indicator {
+    align-self: flex-start;
+  }
+
+  .project-page-title {
+    font-size: 1.75rem;
+  }
+
+  .project-page-stats {
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .project-page-stat-card {
+    min-width: 85px;
+    max-width: 100px;
+    height: 75px;
+    padding: 0.75rem 0.5rem;
+  }
+
+  .project-page-stat-number {
+    font-size: 1.4rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .project-page-stat-label {
+    font-size: 0.7rem;
+    line-height: 1.1;
+  }
+}
