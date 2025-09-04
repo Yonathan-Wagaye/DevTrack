@@ -6,7 +6,7 @@ class GitHubService {
   }
 
   // Parse GitHub repository URL to extract owner and repo name
-  static parseRepoUrl(repoUrl) {
+  parseRepoUrl(repoUrl) {
     if (!repoUrl) return null
 
     try {

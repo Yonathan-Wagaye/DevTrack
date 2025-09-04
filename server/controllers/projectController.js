@@ -27,8 +27,8 @@ export const createProject = async (req, res) => {
     let github_repo_name = null
     
     if (github_repo_url) {
-      const GitHubService = await import('../services/githubService.js')
-      const parsed = GitHubService.default.parseRepoUrl(github_repo_url)
+      const { default: gitHubService } = await import('../services/githubService.js')
+      const parsed = gitHubService.parseRepoUrl(github_repo_url)
       if (parsed) {
         github_owner = parsed.owner
         github_repo_name = parsed.repo
@@ -113,8 +113,8 @@ export const updateProject = async (req, res) => {
     let github_repo_name = null
     
     if (github_repo_url) {
-      const GitHubService = await import('../services/githubService.js')
-      const parsed = GitHubService.default.parseRepoUrl(github_repo_url)
+      const { default: gitHubService } = await import('../services/githubService.js')
+      const parsed = gitHubService.parseRepoUrl(github_repo_url)
       if (parsed) {
         github_owner = parsed.owner
         github_repo_name = parsed.repo

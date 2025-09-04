@@ -52,8 +52,9 @@ const ProjectForm = ({ onSuccess, onCancel }) => {
       
       const projectData = {
         name: formData.name.trim(),
-        description: formData.description.trim(),
-        color: formData.color || '#3498db'
+        description: formData.description?.trim() || null,
+        color: formData.color || '#3498db',
+        github_repo_url: formData.github_repo_url?.trim() || null
       }
       
       console.log('📝 ProjectForm: Submitting project:', projectData)
