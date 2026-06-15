@@ -53,58 +53,6 @@ DevTrack/
 └── README.md
 ```
 
-## 🎯 What You Need to Build
 
-### Frontend Components
-- **Navbar** - Navigation with theme toggle
-- **Login Page** - Authentication form
-- **Dashboard** - Overview with stats and charts
-- **Tasks Page** - CRUD operations for tasks
-- **Projects Page** - Project management
-- **Commits Page** - GitHub commit tracking
-
-### Backend API
-- Custom HTTP server using Node.js built-in modules
-- Endpoints for authentication, tasks, projects, and commits
-- In-memory data storage (or simple JSON file)
-
-### Features to Implement
-- Task management (add, edit, delete, status updates)
-- Project organization
-- GitHub API integration for commit tracking
-- Data visualization with charts
-- Theme switching (light/dark)
-- Responsive design
-
-## 🛠️ Tech Stack
-
-- **Frontend**: React 18, Redux Toolkit, React Router, Vite
-- **Charts**: Recharts
-- **Icons**: Lucide React
-- **Backend**: Node.js (no Express)
-- **Styling**: CSS with CSS variables for theming
-
-## 💡 Development Tips
-
-1. **Start with the Redux store** - The slices are already set up
-2. **Build components incrementally** - Start with basic structure, then add functionality
-3. **Use the existing CSS variables** for consistent theming
-4. **Test routing** - React Router is already configured
-5. **Implement authentication flow** - Redux auth slice is ready
-
-## 🔧 Available Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-
-## 📚 Learning Resources
-
-- [React Documentation](https://react.dev/)
-- [Redux Toolkit](https://redux-toolkit.js.org/)
-- [React Router](https://reactrouter.com/)
-- [Recharts](https://recharts.org/)
-
----
 
 
