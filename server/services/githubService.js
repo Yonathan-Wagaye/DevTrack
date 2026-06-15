@@ -95,11 +95,15 @@ class GitHubService {
     try {
       // Get latest commit date from database to avoid duplicates
       const existingCommits = await Commit.findByProjectId(projectId, 1)
-      const since = existingCommits.length > 0 
-        ? new Date(existingCommits[0].commit_date).toISOString()
-        : new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString() // Last 30 days
+      let since = null
+      
+      if (existingCommits.length > 0) {
+        // If we have existing commits, only fetch newer ones
+        since = new Date(existingCommits[0].commit_date).toISOString()
+      }
+      // For first-time sync, fetch ALL commits (no since parameter)
 
-      console.log(`🔄 Syncing commits for ${github_owner}/${github_repo_name} since ${since}`)
+      console.log(`🔄 Syncing commits for ${github_owner}/${github_repo_name}${since ? ` since ${since}` : ' (all commits)'}`)
 
       const commits = await this.fetchCommits(github_owner, github_repo_name, { since })
       

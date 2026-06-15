@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken'
+import User from '../models/User.js'
 
 export const authenticateToken = async (req, res, next) => {
   const authHeader = req.headers['authorization']
@@ -22,11 +23,17 @@ export const authenticateToken = async (req, res, next) => {
       throw new Error('Token expired')
     }
 
-    // Extract user info from Supabase token
+    const email = decoded.email
+    const name = decoded.user_metadata?.name || 'User'
+
+    // Ensure Supabase user exists in local Postgres
+    const localUser = await User.findOrCreateByEmail({ email, name })
+
     req.user = {
-      id: decoded.sub, // Supabase uses 'sub' for user ID
-      email: decoded.email,
-      name: decoded.user_metadata?.name || 'User'
+      id: localUser.id,
+      supabaseId: decoded.sub,
+      email: localUser.email,
+      name: localUser.name
     }
     
     console.log('✅ Token authenticated for user:', req.user.email)

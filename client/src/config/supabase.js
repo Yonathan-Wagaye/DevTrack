@@ -3,15 +3,18 @@ import { createClient } from '@supabase/supabase-js'
 // Handle both Node.js and browser environments
 let supabaseUrl, supabaseAnonKey
 
+const getSupabaseKey = (env) =>
+  env.VITE_SUPABASE_PUBLISHABLE_KEY || env.VITE_SUPABASE_ANON_KEY
+
 if (typeof process !== 'undefined' && process.env) {
   // Node.js environment
   supabaseUrl = process.env.VITE_SUPABASE_URL
-  supabaseAnonKey = process.env.VITE_SUPABASE_ANON_KEY
+  supabaseAnonKey = getSupabaseKey(process.env)
   console.log('Environment: Node.js')
 } else if (typeof import.meta !== 'undefined' && import.meta.env) {
   // Browser environment (Vite)
   supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-  supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+  supabaseAnonKey = getSupabaseKey(import.meta.env)
   console.log('Environment: Browser')
 }
 

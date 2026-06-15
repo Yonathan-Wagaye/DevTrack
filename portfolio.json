@@ -1,0 +1,6 @@
+{
+  "title": "DevTrack",
+  "description": "A productivity dashboard for developers to manage tasks, organize projects, and track GitHub commits. Built with a React/Redux frontend, Express/Node.js API, and PostgreSQL.",
+  "category": ["Web Full Stack"],
+  "techStack": ["React", "Redux", "Node.js", "Express", "PostgreSQL", "Vite", "GitHub API"]
+}

@@ -148,20 +148,20 @@ const Dashboard = () => {
               stats.recent_projects.map((project) => (
                 <div 
                   key={project.id} 
-                  className="project-item"
+                  className="dashboard-project-item"
                   onClick={() => navigate(`/projects/${project.id}`)}
                   style={{ cursor: 'pointer' }}
                 >
-                  <div className="project-info">
-                    <h4>{project.name}</h4>
-                    <p>{project.description || 'No description'}</p>
-                  </div>
-                  <div className="project-color-indicator">
+                  <div className="dashboard-project-header">
                     <div 
-                      className="color-dot" 
+                      className="dashboard-project-color" 
                       style={{ backgroundColor: project.color }}
                     ></div>
+                    <h4 className="dashboard-project-title">{project.name}</h4>
                   </div>
+                  <p className="dashboard-project-description">
+                    {project.description || 'No description'}
+                  </p>
                 </div>
               ))
             ) : (

@@ -6,7 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dev": "npx nodemon server.js"
+    "dev": "npx nodemon server.js",
+    "db:up": "docker compose --env-file .env -f ../docker-compose.yml up -d",
+    "db:down": "docker compose --env-file .env -f ../docker-compose.yml down",
+    "db:logs": "docker compose --env-file .env -f ../docker-compose.yml logs -f postgres",
+    "db:test": "node test/testDb.js"
   },
   "keywords": [],
   "author": "",

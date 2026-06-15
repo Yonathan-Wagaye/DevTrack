@@ -141,9 +141,11 @@ const CommitsPage = () => {
                         className="project-color" 
                         style={{ backgroundColor: project.color }}
                       ></div>
-                      <div>
-                        <h4>{project.name}</h4>
-                        <p>{project.github_owner}/{project.github_repo_name}</p>
+                      <div className="project-text">
+                        <h4 title={project.name}>{project.name}</h4>
+                        <p title={`${project.github_owner}/${project.github_repo_name}`}>
+                          {project.github_owner}/{project.github_repo_name}
+                        </p>
                       </div>
                     </div>
                   </div>
