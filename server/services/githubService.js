@@ -3,6 +3,20 @@ import Commit from '../models/Commit.js'
 class GitHubService {
   constructor() {
     this.baseURL = 'https://api.github.com'
+    this.token = process.env.GITHUB_TOKEN
+  }
+
+  getHeaders() {
+    const headers = {
+      'Accept': 'application/vnd.github.v3+json',
+      'User-Agent': 'DevTrack-App'
+    }
+
+    if (this.token) {
+      headers.Authorization = `Bearer ${this.token}`
+    }
+
+    return headers
   }
 
   // Parse GitHub repository URL to extract owner and repo name
@@ -50,15 +64,16 @@ class GitHubService {
       console.log(`🔍 Fetching commits from: ${url}`)
       
       const response = await fetch(url, {
-        headers: {
-          'Accept': 'application/vnd.github.v3+json',
-          'User-Agent': 'DevTrack-App'
-        }
+        headers: this.getHeaders()
       })
 
       if (!response.ok) {
         if (response.status === 404) {
-          throw new Error('Repository not found or not accessible')
+          throw new Error(
+            this.token
+              ? 'Repository not found or not accessible with this token'
+              : 'Repository not found or not accessible. Private repos require GITHUB_TOKEN in server/.env'
+          )
         }
         if (response.status === 403) {
           throw new Error('API rate limit exceeded or repository is private')
@@ -143,10 +158,7 @@ class GitHubService {
   async getRepoInfo(owner, repo) {
     try {
       const response = await fetch(`${this.baseURL}/repos/${owner}/${repo}`, {
-        headers: {
-          'Accept': 'application/vnd.github.v3+json',
-          'User-Agent': 'DevTrack-App'
-        }
+        headers: this.getHeaders()
       })
 
       if (!response.ok) {

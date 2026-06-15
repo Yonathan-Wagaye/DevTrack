@@ -24,6 +24,10 @@ export const authenticateToken = async (req, res, next) => {
     }
 
     const email = decoded.email
+    if (!email) {
+      throw new Error('Token missing email claim')
+    }
+
     const name = decoded.user_metadata?.name || 'User'
 
     // Ensure Supabase user exists in local Postgres
@@ -40,6 +44,17 @@ export const authenticateToken = async (req, res, next) => {
     next()
   } catch (error) {
     console.error('❌ Token verification failed:', error)
-    return res.status(403).json({ message: 'Invalid or expired token' })
+
+    if (error.message?.includes('finding or creating user') || error.code === 'ECONNREFUSED') {
+      return res.status(503).json({
+        message: 'Database unavailable. Start PostgreSQL with: cd server && npm run db:up'
+      })
+    }
+
+    if (error.message === 'Token expired' || error.message === 'Invalid token format' || error.message === 'Token missing email claim') {
+      return res.status(403).json({ message: 'Invalid or expired token' })
+    }
+
+    return res.status(500).json({ message: 'Authentication failed' })
   }
 }

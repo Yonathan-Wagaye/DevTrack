@@ -1,6 +1,29 @@
 {
   "title": "DevTrack",
-  "description": "A productivity dashboard for developers to manage tasks, organize projects, and track GitHub commits. Built with a React/Redux frontend, Express/Node.js API, and PostgreSQL.",
-  "category": ["Web Full Stack"],
-  "techStack": ["React", "Redux", "Node.js", "Express", "PostgreSQL", "Vite", "GitHub API"]
+  "description": "A productivity dashboard for developers to manage tasks, organize projects, and track GitHub commits. Built with React, Redux, Node.js, Express, and PostgreSQL.",
+  "detailDescription": "DevTrack is a full-stack developer productivity app for solo builders and students who juggle multiple repos and to-dos. It brings task management and GitHub activity into one place so you can see what you're working on and what you've actually shipped. Users create color-coded projects, manage tasks on a kanban-style board with drag-and-drop status updates, and link each project to a GitHub repository to sync and browse recent commits. A central dashboard surfaces project counts, task completion rates, and quick actions. Authentication and persistent storage are handled with JWT and PostgreSQL, keeping each user's data isolated and reliable.",
+  "category": ["Web", "Databases"],
+  "techStack": ["React", "Redux", "Node.js", "Express", "PostgreSQL", "Vite", "GitHub API"],
+  "features": [
+    {
+      "title": "Task Management",
+      "description": "Create, edit, and delete tasks tied to projects with priority levels (low, medium, high). View all tasks on a kanban board grouped by pending, in progress, and completed, and drag cards between columns to update status instantly."
+    },
+    {
+      "title": "Project Organization",
+      "description": "Group work into named projects with descriptions and custom colors. Each project acts as a container for related tasks and can optionally link to a GitHub repository URL for commit tracking."
+    },
+    {
+      "title": "GitHub Commit Tracking",
+      "description": "Connect projects to public GitHub repos and sync commit history from the GitHub API. Browse commit messages, authors, timestamps, and SHA links per project, with manual sync to pull the latest activity."
+    },
+    {
+      "title": "Developer Dashboard",
+      "description": "Get an at-a-glance overview with total projects, task counts by status, completion rate, and recent tasks and projects. Quick-action buttons jump straight to creating tasks, projects, or full list views."
+    },
+    {
+      "title": "Authentication & PostgreSQL Storage",
+      "description": "Register and log in with JWT-based auth so each user only sees their own data. Projects, tasks, and synced commits are stored in PostgreSQL with relational models and server-side validation."
+    }
+  ]
 }
