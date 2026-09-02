@@ -4,11 +4,10 @@
 }
 
 .project-form {
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid #333333;
+  background-color: var(--elevated);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 2rem;
-  backdrop-filter: blur(10px);
 }
 
 .form-section {
@@ -25,7 +24,7 @@
   font-weight: 600;
   margin: 0 0 1rem 0;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid rgba(255, 107, 53, 0.3);
+  border-bottom: 2px solid rgba(245, 245, 245, 0.12);
 }
 
 .field-description {
@@ -46,6 +45,12 @@
   font-weight: 500;
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
+}
+
+.label-with-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .form-input,
@@ -69,8 +74,8 @@
 .form-input:focus,
 .form-textarea:focus {
   outline: none;
-  border-color: #ff6b35;
-  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(245, 245, 245, 0.06);
 }
 
 .form-textarea {
@@ -144,7 +149,7 @@
 
 .form-color-picker:hover,
 .form-color-picker:focus {
-  border-color: #ff6b35;
+  border-color: var(--accent);
 }
 
 .color-value {
@@ -206,16 +211,16 @@
 }
 
 .btn-submit {
-  background-color: #ff6b35;
-  color: white;
-  border: 2px solid #ff6b35;
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+  border: 1px solid var(--border-strong);
 }
 
 .btn-submit:hover:not(:disabled) {
-  background-color: #e55a2b;
-  border-color: #e55a2b;
+  background-color: var(--accent);
+  border-color: var(--accent);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+  box-shadow: 0 4px 12px rgba(245, 245, 245, 0.12);
 }
 
 .btn-submit:disabled,

@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateFormField, resetForm, clearFormError } from '../../redux/slices/projectSlice'
 import { createProject } from '../../redux/thunks/projectThunks'
+import GitHubLogo from '../icons/GitHubLogo'
 import '../../styles/ProjectForm.css'
 
 const ProjectForm = ({ onSuccess, onCancel }) => {
@@ -14,18 +15,18 @@ const ProjectForm = ({ onSuccess, onCancel }) => {
   } = useSelector(state => state.projects)
 
   const predefinedColors = [
-    '#e74c3c', // Red
-    '#3498db', // Blue
-    '#2ecc71', // Green
-    '#f39c12', // Orange
-    '#9b59b6', // Purple
-    '#1abc9c', // Teal
-    '#e67e22', // Dark Orange
-    '#34495e', // Dark Blue Grey
-    '#f1c40f', // Yellow
-    '#e91e63', // Pink
-    '#ff6b35', // DevTrack Orange
-    '#27ae60'  // Dark Green
+    '#f5f5f5',
+    '#d4d4d4',
+    '#a3a3a3',
+    '#737373',
+    '#525252',
+    '#404040',
+    '#6b7280',
+    '#9ca3af',
+    '#d1d5db',
+    '#4b5563',
+    '#374151',
+    '#1f2937'
   ]
 
   const handleChange = (e) => {
@@ -119,8 +120,9 @@ const ProjectForm = ({ onSuccess, onCancel }) => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="github_repo_url" className="form-label">
-              GitHub Repository
+            <label htmlFor="github_repo_url" className="form-label label-with-logo">
+              <GitHubLogo size={16} />
+              GitHub repository
             </label>
             <input
               type="url"

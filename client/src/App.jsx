@@ -21,12 +21,10 @@ import './App.css'
 
 // Session wrapper component
 function AppContent() {
-  const { isLoading } = useSession()
-  const { isLoading: authLoading, isAuthenticated, user } = useSelector(state => state.auth)
+  useSession()
+  const { isSessionLoading } = useSelector(state => state.auth)
 
-  console.log('🔍 AppContent Debug:', { isLoading, authLoading, isAuthenticated, user })
-
-  if (isLoading || authLoading) {
+  if (isSessionLoading) {
     return (
       <div className="loading-screen">
         <div className="loading-spinner"></div>

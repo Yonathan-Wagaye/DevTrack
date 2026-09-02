@@ -173,8 +173,8 @@
 
 .status-select:focus {
   outline: none;
-  border-color: #ff6b35;
-  box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.2);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(245, 245, 245, 0.08);
 }
 
 .task-modal-actions {
@@ -199,12 +199,12 @@
 }
 
 .btn-edit {
-  background-color: #ff6b35;
-  color: white;
+  background-color: var(--accent);
+  color: var(--accent-foreground);
 }
 
 .btn-edit:hover {
-  background-color: #e55a2b;
+  background-color: var(--accent);
   transform: translateY(-2px);
 }
 
@@ -298,8 +298,8 @@
 .form-textarea:focus,
 .form-select:focus {
   outline: none;
-  border-color: #ff6b35;
-  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(245, 245, 245, 0.06);
 }
 
 .form-input.error,

@@ -6,6 +6,7 @@ import TaskCard from '../components/tasks/TaskCard'
 import TaskModal from '../components/tasks/TaskModal'
 
 import LoadingSpinner from '../components/common/LoadingSpinner'
+import { TaskIcon } from '../components/icons/Icons'
 import '../styles/TasksPage.css'
 
 const TasksPage = () => {
@@ -114,61 +115,41 @@ const TasksPage = () => {
   const inProgressTasks = tasksByStatus['in-progress'].length
 
   return (
-    <div className="tasks-page">
-      <div className="page-header">
-        <div className="header-content">
-          <div className="header-text">
-            <h1>All Tasks</h1>
-            <p>Manage your tasks organized by status. Track progress across all projects.</p>
+    <div className="tasks-page app-page">
+      <div className="app-page-card">
+        <div className="app-page-head">
+          <div>
+            <h1>Tasks</h1>
+            <p>Manage tasks by status across all projects.</p>
           </div>
-          <button 
-            className="create-task-btn"
-            onClick={handleCreateTask}
-          >
+          <button className="create-task-btn primary" onClick={handleCreateTask}>
             + Add Task
           </button>
         </div>
 
-        <div className="tasks-stats">
-          <div className="stat-card">
-            <span className="stat-number">{totalTasks}</span>
-            <span className="stat-label">Total Tasks</span>
-          </div>
-          <div className="stat-card">
-            <span className="stat-number">{pendingTasks}</span>
-            <span className="stat-label">Pending</span>
-          </div>
-          <div className="stat-card">
-            <span className="stat-number">{inProgressTasks}</span>
-            <span className="stat-label">In Progress</span>
-          </div>
-          <div className="stat-card">
-            <span className="stat-number">{completedTasks}</span>
-            <span className="stat-label">Completed</span>
-          </div>
+        <div className="app-page-stats">
+          <span><strong>{totalTasks}</strong> total</span>
+          <span><strong>{pendingTasks}</strong> pending</span>
+          <span><strong>{inProgressTasks}</strong> in progress</span>
+          <span><strong>{completedTasks}</strong> completed</span>
         </div>
-      </div>
 
-      <div className="page-content">
         {error && (
           <div className="error-message">
-            <p>❌ Error loading tasks: {error}</p>
-            <button onClick={() => dispatch(fetchTasks())}>
-              Try Again
-            </button>
+            <p>Error loading tasks: {error}</p>
+            <button onClick={() => dispatch(fetchTasks())}>Try again</button>
           </div>
         )}
 
         {totalTasks === 0 && !isLoading && !error ? (
           <div className="empty-state">
-            <div className="empty-icon">📝</div>
-            <h3>No Tasks Yet</h3>
+            <div className="empty-icon">
+              <TaskIcon size={32} />
+            </div>
+            <h3>No tasks yet</h3>
             <p>Create your first task to get started with DevTrack</p>
-            <button 
-              className="create-task-btn primary"
-              onClick={handleCreateTask}
-            >
-              Create Your First Task
+            <button className="create-task-btn primary" onClick={handleCreateTask}>
+              Create your first task
             </button>
           </div>
         ) : (
@@ -281,7 +262,6 @@ const TasksPage = () => {
         )}
       </div>
 
-      {/* Task Modal */}
       {selectedTask && (
         <TaskModal
           task={selectedTask}

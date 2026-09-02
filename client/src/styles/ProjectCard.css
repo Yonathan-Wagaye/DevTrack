@@ -1,20 +1,16 @@
 .project-card {
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid #333333;
-  border-radius: 12px;
-  padding: 1.5rem;
-  border-left: 4px solid #ff6b35;
-  backdrop-filter: blur(10px);
+  background-color: var(--elevated);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.35rem 1.85rem;
+  min-height: 160px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  height: fit-content;
+  transition: border-color 150ms ease, background-color 150ms ease;
 }
 
 .project-card:hover {
-  transform: translateY(-4px);
-  background-color: rgba(255, 255, 255, 0.08);
-  border-color: #444444;
-  box-shadow: 0 8px 25px rgba(255, 107, 53, 0.2);
+  background-color: rgba(245, 245, 245, 0.04);
+  border-color: var(--border-strong);
 }
 
 .project-header {
@@ -35,9 +31,9 @@
 }
 
 .edit-project-button {
-  background: rgba(255, 107, 53, 0.1);
-  border: 1px solid rgba(255, 107, 53, 0.3);
-  color: #ff6b35;
+  background: rgba(245, 245, 245, 0.06);
+  border: 1px solid rgba(245, 245, 245, 0.12);
+  color: var(--accent);
   width: 32px;
   height: 32px;
   border-radius: 6px;
@@ -51,14 +47,14 @@
 }
 
 .edit-project-button:hover {
-  background: #ff6b35;
-  color: white;
-  border-color: #ff6b35;
+  background: var(--accent);
+  color: var(--accent-foreground);
+  border-color: var(--accent);
   transform: scale(1.1);
 }
 
 .project-name {
-  font-size: 1.25rem;
+  font-size: 1.45rem;
   font-weight: 600;
   color: #ffffff;
   margin: 0 0 0.5rem 0;
@@ -155,7 +151,7 @@
 
 .progress-fill {
   height: 100%;
-  background-color: #ff6b35;
+  background-color: var(--accent);
   border-radius: 5px;
   transition: width 0.3s ease;
 }
@@ -201,7 +197,7 @@
 }
 
 .view-project {
-  color: #ff6b35;
+  color: var(--accent);
   font-size: 0.85rem;
   font-weight: 500;
   display: flex;

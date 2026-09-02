@@ -54,7 +54,8 @@ class User {
 
     for (const [field, value] of Object.entries(updates)) {
       if (allowedFields.includes(field)) {
-        updateFields.push(`${field} = $${valueIndex}`)
+        const column = field === 'password' ? 'password_hash' : field
+        updateFields.push(`${column} = $${valueIndex}`)
         values.push(value)
         valueIndex++
       }
@@ -91,33 +92,6 @@ class User {
       return result.rows[0]
     } catch (error) {
       throw new Error(`Error deleting user: ${error.message}`)
-    }
-  }
-
-  // Find or create user by email (for Supabase sync)
-  static async findOrCreateByEmail(userData) {
-    const { email, name } = userData
-    
-    try {
-      // First try to find existing user
-      let user = await this.findByEmail(email)
-      
-      if (user) {
-        console.log('✅ User found:', email)
-        return user
-      }
-      
-      // If user doesn't exist, create them
-      console.log('📝 Creating new user:', email)
-      const newUser = await this.create({
-        email,
-        name: name || 'User',
-        password: 'supabase_user' // Placeholder since auth is handled by Supabase
-      })
-      
-      return newUser
-    } catch (error) {
-      throw new Error(`Error finding or creating user: ${error.message}`)
     }
   }
 }

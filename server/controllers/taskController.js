@@ -1,5 +1,4 @@
 import Task from '../models/Task.js'
-import User from '../models/User.js'
 
 // Create a new task
 export const createTask = async (req, res) => {
@@ -21,17 +20,6 @@ export const createTask = async (req, res) => {
     const validStatuses = ['pending', 'in-progress', 'completed']
     if (status && !validStatuses.includes(status)) {
       return res.status(400).json({ message: 'Invalid status' })
-    }
-
-    // Ensure user exists in our database (sync from Supabase)
-    try {
-      await User.findOrCreateByEmail({
-        email: req.user.email,
-        name: req.user.name
-      })
-    } catch (userError) {
-      console.error('❌ Error ensuring user exists:', userError)
-      return res.status(500).json({ message: 'Error syncing user data' })
     }
 
     const taskData = {

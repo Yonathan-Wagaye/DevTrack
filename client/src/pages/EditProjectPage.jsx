@@ -21,8 +21,8 @@ const EditProjectPage = () => {
   } = useSelector(state => state.projects)
 
   const predefinedColors = [
-    '#e74c3c', '#3498db', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c',
-    '#e67e22', '#34495e', '#f1c40f', '#e91e63', '#ff6b35', '#27ae60'
+    '#f5f5f5', '#d4d4d4', '#a3a3a3', '#737373', '#525252', '#404040',
+    '#6b7280', '#9ca3af', '#d1d5db', '#4b5563', '#374151', '#1f2937'
   ]
 
   // Fetch project data when component mounts

@@ -2,14 +2,14 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { logoutUser } from '../redux/thunks/authThunks'
-import useSession from '../hooks/useSession'
+import { clearSession } from '../config/session'
+import { DevTrackLogo } from './icons/Icons'
 import '../styles/Navbar.css'
 
 const Navbar = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const location = useLocation()
-  const { clearSession } = useSession()
   
   // Get auth state from Redux instead of props
   const { isAuthenticated, user } = useSelector(state => state.auth)
@@ -37,10 +37,9 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-container">
         {/* Left Side - Brand Name */}
-        <div className="navbar-brand">
-          <h1 onClick={() => navigate(isAuthenticated ? '/dashboard' : '/')} style={{ cursor: 'pointer' }}>
-            DevTrack
-          </h1>
+        <div className="navbar-brand" onClick={() => navigate(isAuthenticated ? '/dashboard' : '/')}>
+          <DevTrackLogo size={22} />
+          <span>DevTrack</span>
         </div>
 
         {/* Center - Navigation Links (only show if authenticated) */}

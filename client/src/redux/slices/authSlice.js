@@ -4,8 +4,9 @@ const initialState = {
     isAuthenticated: false,
     user: null,
     isLoading: false,
+    isSessionLoading: true,
     error: null,
-    showEmailVerification: false,  // New state for email verification message
+    showEmailVerification: false,
 }
 
 const authSlice = createSlice({
@@ -49,7 +50,7 @@ const authSlice = createSlice({
             state.isLoading = false;
         },
         setSessionLoading: (state, action) => {
-            state.isLoading = action.payload;
+            state.isSessionLoading = action.payload;
         },
         // Registration actions
         registerStart: (state) => {

@@ -6,8 +6,8 @@
 }
 
 .page-header {
-  background: rgba(255, 107, 53, 0.1);
-  border: 1px solid #ff6b35;
+  background: rgba(245, 245, 245, 0.06);
+  border: 1px solid var(--border);
   border-radius: 12px;
   margin: 0 1rem 2rem 1rem;
   color: white;
@@ -26,10 +26,7 @@
   font-size: 2.5rem;
   font-weight: 700;
   margin: 0 0 0.5rem 0;
-  background: linear-gradient(135deg, #ffffff 0%, #ff6b35 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--foreground);
 }
 
 .header-text p {
@@ -40,9 +37,9 @@
 }
 
 .back-button {
-  background: rgba(255, 107, 53, 0.1);
-  border: 1px solid #ff6b35;
-  color: #ff6b35;
+  background: rgba(245, 245, 245, 0.06);
+  border: 1px solid var(--border);
+  color: var(--accent);
   padding: 0.5rem 1rem;
   border-radius: 6px;
   cursor: pointer;
@@ -52,8 +49,8 @@
 }
 
 .back-button:hover {
-  background: #ff6b35;
-  color: white;
+  background: var(--accent);
+  color: var(--accent-foreground);
   transform: translateX(-2px);
 }
 
@@ -92,7 +89,7 @@
   font-weight: 600;
   margin: 0 0 1.5rem 0;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid rgba(255, 107, 53, 0.3);
+  border-bottom: 2px solid rgba(245, 245, 245, 0.12);
 }
 
 .info-item {
@@ -121,7 +118,7 @@
 }
 
 .github-link {
-  color: #ff6b35;
+  color: var(--accent);
   text-decoration: none;
   font-family: monospace;
   font-size: 0.85rem;
@@ -155,7 +152,7 @@
   font-weight: 600;
   margin: 0 0 1rem 0;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid rgba(255, 107, 53, 0.3);
+  border-bottom: 2px solid rgba(245, 245, 245, 0.12);
 }
 
 .color-description {
@@ -199,8 +196,8 @@
 .form-input:focus,
 .form-textarea:focus {
   outline: none;
-  border-color: #ff6b35;
-  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(245, 245, 245, 0.06);
 }
 
 .form-textarea {
@@ -285,16 +282,16 @@
 }
 
 .save-button {
-  background-color: #ff6b35;
-  color: white;
-  border: 2px solid #ff6b35;
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+  border: 1px solid var(--border-strong);
 }
 
 .save-button:hover:not(:disabled) {
-  background-color: #e55a2b;
-  border-color: #e55a2b;
+  background-color: var(--accent);
+  border-color: var(--accent);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+  box-shadow: 0 4px 12px rgba(245, 245, 245, 0.12);
 }
 
 .save-button:disabled {

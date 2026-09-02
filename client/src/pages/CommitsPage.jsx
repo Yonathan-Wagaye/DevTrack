@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { fetchProjects } from '../redux/thunks/projectThunks'
 import LoadingSpinner from '../components/common/LoadingSpinner'
+import { API_BASE_URL } from '../config/api'
+import GitHubLogo from '../components/icons/GitHubLogo'
 import '../styles/CommitsPage.css'
 
 const CommitsPage = () => {
@@ -16,7 +18,6 @@ const CommitsPage = () => {
   const [syncLoading, setSyncLoading] = useState(false)
 
   useEffect(() => {
-    console.log('📋 CommitsPage: Fetching projects...')
     dispatch(fetchProjects())
   }, [dispatch])
 
@@ -28,7 +29,7 @@ const CommitsPage = () => {
     setIsLoadingCommits(true)
     try {
       const token = getAuthToken()
-      const response = await fetch(`http://localhost:5001/api/commits/project/${projectId}`, {
+      const response = await fetch(`${API_BASE_URL}/commits/project/${projectId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -53,7 +54,7 @@ const CommitsPage = () => {
     setSyncLoading(true)
     try {
       const token = getAuthToken()
-      const response = await fetch(`http://localhost:5001/api/commits/project/${projectId}/sync`, {
+      const response = await fetch(`${API_BASE_URL}/commits/project/${projectId}/sync`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -97,153 +98,147 @@ const CommitsPage = () => {
 
   const githubProjects = projects.filter(p => p.github_owner && p.github_repo_name)
 
+  useEffect(() => {
+    const first = projects.find(p => p.github_owner && p.github_repo_name)
+    if (!selectedProject && first) {
+      handleProjectSelect(first)
+    }
+  }, [projects, selectedProject])
+
   if (isLoading) {
     return <LoadingSpinner message="Loading projects..." />
   }
 
   return (
-    <div className="commits-page">
-      <div className="page-header">
-        <div className="header-content">
-          <div className="header-text">
-            <h1>GitHub Commits</h1>
-            <p>Track development progress across your GitHub repositories</p>
+    <div className="commits-page app-page">
+      <div className="app-page-card">
+        <div className="app-page-head">
+          <div>
+            <h1 className="page-title-with-logo">
+              <GitHubLogo size={22} />
+              Commits
+            </h1>
+            <p>Track development progress across your repositories</p>
           </div>
         </div>
-      </div>
 
-      <div className="page-content">
         {githubProjects.length === 0 ? (
           <div className="empty-state">
-            <div className="empty-icon">📚</div>
-            <h3>No GitHub Projects</h3>
-            <p>Add GitHub repository URLs to your projects to track commits</p>
-            <button 
+            <div className="empty-icon">
+              <GitHubLogo size={32} />
+            </div>
+            <h3>No GitHub projects</h3>
+            <p>Add a repository URL to a project to track commits</p>
+            <button
               className="create-project-btn"
               onClick={() => navigate('/projects/create')}
             >
-              Create Project with GitHub
+              Create project with GitHub
             </button>
           </div>
         ) : (
-          <div className="commits-content">
-            <div className="projects-sidebar">
-              <h3>Projects with GitHub</h3>
-              <div className="project-list">
-                {githubProjects.map(project => (
-                  <div 
-                    key={project.id}
-                    className={`project-item ${selectedProject?.id === project.id ? 'active' : ''}`}
-                    onClick={() => handleProjectSelect(project)}
-                  >
-                    <div className="project-info">
-                      <div 
-                        className="project-color" 
-                        style={{ backgroundColor: project.color }}
-                      ></div>
-                      <div className="project-text">
-                        <h4 title={project.name}>{project.name}</h4>
-                        <p title={`${project.github_owner}/${project.github_repo_name}`}>
-                          {project.github_owner}/{project.github_repo_name}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+          <>
+            <div className="project-pills">
+              {githubProjects.map(project => (
+                <button
+                  key={project.id}
+                  type="button"
+                  className={`project-pill ${selectedProject?.id === project.id ? 'active' : ''}`}
+                  onClick={() => handleProjectSelect(project)}
+                >
+                  <span
+                    className="project-color"
+                    style={{ backgroundColor: project.color }}
+                  />
+                  {project.name}
+                </button>
+              ))}
             </div>
 
-            <div className="commits-main">
-              {!selectedProject ? (
-                <div className="select-project">
-                  <h3>Select a project to view commits</h3>
-                  <p>Choose a project from the sidebar to see its GitHub commit history</p>
-                </div>
-              ) : (
-                <div className="commits-container">
-                  <div className="commits-header">
-                    <div className="commits-title">
-                      <h3>{selectedProject.name} Commits</h3>
-                      <p>
-                        <a 
-                          href={`https://github.com/${selectedProject.github_owner}/${selectedProject.github_repo_name}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="repo-link"
-                        >
-                          {selectedProject.github_owner}/{selectedProject.github_repo_name} ↗
-                        </a>
-                      </p>
-                    </div>
-                    <button 
-                      className="sync-button"
-                      onClick={() => syncProjectCommits(selectedProject.id)}
-                      disabled={syncLoading}
-                    >
-                      {syncLoading ? 'Syncing...' : '🔄 Sync Commits'}
-                    </button>
+            {selectedProject && (
+              <div className="commits-container">
+                <div className="commits-header">
+                  <div className="commits-title">
+                    <h3>{selectedProject.name}</h3>
+                    <p>
+                      <a
+                        href={`https://github.com/${selectedProject.github_owner}/${selectedProject.github_repo_name}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="repo-link"
+                      >
+                        {selectedProject.github_owner}/{selectedProject.github_repo_name}
+                      </a>
+                    </p>
                   </div>
+                  <button
+                    className="sync-button"
+                    onClick={() => syncProjectCommits(selectedProject.id)}
+                    disabled={syncLoading}
+                  >
+                    {syncLoading ? 'Syncing...' : 'Sync commits'}
+                  </button>
+                </div>
 
-                  <div className="commits-list">
-                    {isLoadingCommits ? (
-                      <div className="loading-commits">
-                        <LoadingSpinner message="Loading commits..." />
-                      </div>
-                    ) : commits.length === 0 ? (
-                      <div className="no-commits">
-                        <p>No commits found. Click "Sync Commits" to fetch from GitHub.</p>
-                      </div>
-                    ) : (
-                      commits.map(commit => (
-                        <div key={commit.id} className="commit-item">
-                          <div className="commit-header">
-                            <div className="commit-message">
-                              {commit.commit_message.split('\n')[0]}
-                            </div>
-                            <div className="commit-date">
-                              {formatDate(commit.commit_date)}
-                            </div>
+                <div className="commits-list">
+                  {isLoadingCommits ? (
+                    <div className="loading-commits">
+                      <LoadingSpinner message="Loading commits..." />
+                    </div>
+                  ) : commits.length === 0 ? (
+                    <div className="no-commits">
+                      <p>No commits found. Sync to fetch from GitHub.</p>
+                    </div>
+                  ) : (
+                    commits.map(commit => (
+                      <div key={commit.id} className="commit-item">
+                        <div className="commit-header">
+                          <div className="commit-message">
+                            {commit.commit_message.split('\n')[0]}
                           </div>
-                          <div className="commit-details">
-                            <div className="commit-author">
-                              👤 {commit.author_name}
-                            </div>
-                            <div className="commit-stats">
-                              {commit.files_changed > 0 && (
-                                <span className="stat-item">
-                                  📁 {commit.files_changed} files
-                                </span>
-                              )}
-                              {commit.additions > 0 && (
-                                <span className="stat-item additions">
-                                  +{commit.additions}
-                                </span>
-                              )}
-                              {commit.deletions > 0 && (
-                                <span className="stat-item deletions">
-                                  -{commit.deletions}
-                                </span>
-                              )}
-                            </div>
-                            <div className="commit-sha">
-                              <a 
-                                href={commit.commit_url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="sha-link"
-                              >
-                                {commit.commit_sha.substring(0, 7)}
-                              </a>
-                            </div>
+                          <div className="commit-date">
+                            {formatDate(commit.commit_date)}
                           </div>
                         </div>
-                      ))
-                    )}
-                  </div>
+                        <div className="commit-details">
+                          <div className="commit-author">
+                            {commit.author_name}
+                          </div>
+                          <div className="commit-stats">
+                            {commit.files_changed > 0 && (
+                              <span className="stat-item">
+                                {commit.files_changed} files
+                              </span>
+                            )}
+                            {commit.additions > 0 && (
+                              <span className="stat-item additions">
+                                +{commit.additions}
+                              </span>
+                            )}
+                            {commit.deletions > 0 && (
+                              <span className="stat-item deletions">
+                                -{commit.deletions}
+                              </span>
+                            )}
+                          </div>
+                          <div className="commit-sha">
+                            <a
+                              href={commit.commit_url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="sha-link"
+                            >
+                              {commit.commit_sha.substring(0, 7)}
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    ))
+                  )}
                 </div>
-              )}
-            </div>
-          </div>
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

@@ -82,9 +82,9 @@ app.use('*', (req, res) => {
 })
 
 // Start server
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running on port ${PORT}`)
-  console.log(`📱 Client URL: ${process.env.CLIENT_URL || 'http://localhost:5173'}`)
+  console.log(`📱 Client URL: ${process.env.CLIENT_URL || 'http://localhost:3000'}`)
   console.log(`🏥 Health check: http://localhost:${PORT}/health`)
   console.log(`🔗 API Base URL: http://localhost:${PORT}/api`)
 })

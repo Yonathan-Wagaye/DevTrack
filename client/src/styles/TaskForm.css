@@ -49,8 +49,8 @@
 .form-textarea:focus,
 .form-select:focus {
   outline: none;
-  border-color: #ff6b35;
-  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.2);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(245, 245, 245, 0.08);
 }
 
 .form-input::placeholder,
@@ -78,8 +78,8 @@
 /* Error Message */
 .error-message {
   background: rgba(255, 0, 0, 0.1);
-  border: 1px solid #ff0000;
-  color: #ff6b6b;
+  border: 1px solid var(--danger);
+  color: var(--danger);
   padding: 1rem;
   border-radius: 0.5rem;
   font-size: 0.9rem;
@@ -117,25 +117,25 @@
 }
 
 .btn-primary {
-  background-color: #FF0000;
-  color: #ffffff;
+  background-color: var(--accent);
+  color: var(--accent-foreground);
 }
 
 .btn-primary:hover:not(:disabled) {
-  background-color: #950101;
+  background-color: var(--accent);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(245, 245, 245, 0.12);
 }
 
 .btn-secondary {
-  background-color: #3D0000;
+  background-color: var(--elevated);
   color: #ffffff;
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background-color: #950101;
+  background-color: var(--accent);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(245, 245, 245, 0.12);
 }
 
 /* Priority Color Indicators */
@@ -148,7 +148,7 @@
 }
 
 .priority-high {
-  background-color: #ff6b6b;
+  background-color: var(--danger);
 }
 
 .priority-medium {

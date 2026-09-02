@@ -6,8 +6,8 @@
 }
 
 .page-header {
-  background: rgba(255, 107, 53, 0.1);
-  border: 1px solid #ff6b35;
+  background: rgba(245, 245, 245, 0.06);
+  border: 1px solid var(--border);
   border-radius: 12px;
   margin: 0 1rem 2rem 1rem;
   color: white;
@@ -30,9 +30,9 @@
 }
 
 .back-button {
-  background: rgba(255, 107, 53, 0.1);
-  border: 1px solid #ff6b35;
-  color: #ff6b35;
+  background: rgba(245, 245, 245, 0.06);
+  border: 1px solid var(--border);
+  color: var(--accent);
   padding: 0.5rem 1rem;
   border-radius: 6px;
   cursor: pointer;
@@ -42,8 +42,8 @@
 }
 
 .back-button:hover {
-  background: #ff6b35;
-  color: white;
+  background: var(--accent);
+  color: var(--accent-foreground);
   transform: translateX(-2px);
 }
 
@@ -56,10 +56,7 @@
   font-weight: 700;
   margin: 0;
   margin-bottom: 0.5rem;
-  background: linear-gradient(135deg, #ffffff 0%, #ff6b35 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--foreground);
 }
 
 .header-text p {

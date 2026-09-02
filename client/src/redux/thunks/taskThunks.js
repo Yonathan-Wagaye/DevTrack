@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
+import { API_BASE_URL } from '../../config/api'
 
 // Helper function to get auth token
 const getAuthToken = () => {
@@ -7,9 +8,6 @@ const getAuthToken = () => {
   console.log('🔑 taskThunks: Getting token from localStorage:', token ? 'Token exists' : 'No token found')
   return token
 }
-
-// API base URL (you'll need to update this to your backend URL)
-const API_BASE_URL = 'http://localhost:5001/api'
 
 // Create task
 export const createTask = createAsyncThunk(

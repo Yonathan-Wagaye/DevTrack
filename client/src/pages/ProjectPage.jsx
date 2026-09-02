@@ -8,6 +8,7 @@ import TaskCard from '../components/tasks/TaskCard'
 import TaskModal from '../components/tasks/TaskModal'
 
 import LoadingSpinner from '../components/common/LoadingSpinner'
+import { TaskIcon } from '../components/icons/Icons'
 import '../styles/ProjectPage.css'
 
 const ProjectPage = () => {
@@ -241,7 +242,9 @@ const ProjectPage = () => {
       <div className="page-content">
         {tasks.length === 0 ? (
           <div className="empty-state">
-            <div className="empty-icon">📝</div>
+            <div className="empty-icon">
+              <TaskIcon size={40} />
+            </div>
             <h3>No Tasks Yet</h3>
             <p>Add your first task to get started with this project</p>
             <button 

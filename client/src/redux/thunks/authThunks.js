@@ -1,39 +1,37 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { loginStart, loginFailure, loginSuccess, registerStart, registerSuccess, registerFailure } from "../slices/authSlice";
-import { supabase } from "../../config/supabase";
+import { API_BASE_URL } from "../../config/api";
+import { getStoredToken } from "../../config/session";
+
+const readErrorMessage = async (response, fallback) => {
+    try {
+        const data = await response.json()
+        return data.message || fallback
+    } catch {
+        return fallback
+    }
+}
 
 export const loginUser = createAsyncThunk(
     'auth/loginUser',
-    async (credentials, { dispatch, rejectWithValue }) => {    
+    async (credentials, { dispatch, rejectWithValue }) => {
         try {
             dispatch(loginStart());
 
-            // Use Supabase authentication
-            const { data, error } = await supabase.auth.signInWithPassword({
-                email: credentials.email,
-                password: credentials.password
-            });
+            const response = await fetch(`${API_BASE_URL}/auth/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(credentials)
+            })
 
-            if (error) {
-                throw new Error(error.message);
+            if (!response.ok) {
+                throw new Error(await readErrorMessage(response, 'Login failed'))
             }
 
-            // Extract user data from Supabase response
-            const user = {
-                id: data.user.id,
-                email: data.user.email,
-                name: data.user.user_metadata?.name || 'User',
-                createdAt: data.user.created_at
-            };
-
-            // Get the access token from Supabase
-            const token = data.session?.access_token;
-
-            console.log('🔑 authThunks: Login token:', token ? 'Token received' : 'No token');
+            const data = await response.json()
+            const { user, token } = data
 
             dispatch(loginSuccess(user));
-            
-            // Return both user and token for session management
             return { user, token };
         } catch (error) {
             dispatch(loginFailure(error.message));
@@ -44,35 +42,26 @@ export const loginUser = createAsyncThunk(
 
 export const registerUser = createAsyncThunk(
     'auth/registerUser',
-    async (userData, { dispatch, rejectWithValue }) => {    
+    async (userData, { dispatch, rejectWithValue }) => {
         try {
             dispatch(registerStart());
 
-            // Use Supabase authentication
-            const { data, error } = await supabase.auth.signUp({
-                email: userData.email,
-                password: userData.password,
-                options: {
-                    data: {
-                        name: userData.name
-                    }
-                }
-            });
+            const response = await fetch(`${API_BASE_URL}/auth/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(userData)
+            })
 
-            if (error) {
-                throw new Error(error.message);
+            if (!response.ok) {
+                throw new Error(await readErrorMessage(response, 'Registration failed'))
             }
 
-            // Extract user data from Supabase response
-            const user = {
-                id: data.user.id,
-                email: data.user.email,
-                name: data.user.user_metadata?.name || 'User',
-                createdAt: data.user.created_at
-            };
+            const data = await response.json()
+            const { user, token } = data
 
             dispatch(registerSuccess(user));
-            return user;
+            dispatch(loginSuccess(user));
+            return { user, token };
         } catch (error) {
             dispatch(registerFailure(error.message));
             return rejectWithValue(error.message);
@@ -82,19 +71,20 @@ export const registerUser = createAsyncThunk(
 
 export const logoutUser = createAsyncThunk(
     'auth/logoutUser',
-    async (_, { dispatch, rejectWithValue }) => {    
-        try {
-            // Use Supabase authentication
-            const { error } = await supabase.auth.signOut();
+    async () => {
+        const token = getStoredToken()
 
-            if (error) {
-                throw new Error(error.message);
+        if (token) {
+            try {
+                await fetch(`${API_BASE_URL}/auth/logout`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                })
+            } catch {
+                // Local logout should still succeed if the API is unreachable
             }
-
-            // Return success (logout will be handled by the slice)
-            return null;
-        } catch (error) {
-            return rejectWithValue(error.message);
         }
+
+        return null;
     }
 );

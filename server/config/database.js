@@ -14,7 +14,7 @@ const pool = new Pool({
 
     max: 20, // maximum number of connections in the pool
     idleTimeoutMillis: 30000, // 30 seconds of inactivity before closing a connection
-    connectionTimeoutMillis: 2000, // 2 seconds to connect to the database
+    connectionTimeoutMillis: 10000, // 10 seconds to connect to the database
 });
 
 pool.on('connect', () => {

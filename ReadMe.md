@@ -4,55 +4,95 @@ A productivity dashboard for developers to manage tasks and track GitHub commits
 
 > Portfolio metadata for this project lives in [`portfolio.json`](./portfolio.json) at the repo root.
 
-## 🚀 Getting Started
+## Getting Started (Docker)
+
+From the repo root, start the frontend, backend, and Postgres:
+
+```bash
+docker compose --env-file server/.env up --build
+```
+
+- **Frontend:** http://localhost:3000
+- **Backend API:** http://localhost:5001
+- **Postgres:** localhost:5432
+
+Stop everything:
+
+```bash
+docker compose --env-file server/.env down
+```
+
+Follow logs:
+
+```bash
+docker compose --env-file server/.env logs -f
+```
+
+### First-time setup
+
+1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop/).
+2. Copy the env template and fill in real values:
+
+```bash
+cp server/.env.example server/.env
+```
+
+3. Run the `docker compose up` command above.
+
+`--env-file` loads `server/.env` so Compose can interpolate database credentials. For local Vite (`npm run dev`), copy `client/.env.example` to `client/.env` as well.
+
+## Local development (without Docker for the apps)
+
+Use this when you want hot reload. Postgres can still run in Docker.
 
 ### Prerequisites
-- Node.js (v16 or higher)
-- npm or yarn
+
+- Node.js (v18 or higher)
+- npm
+- Docker (for the database)
 
 ### Installation
 
-1. **Install client dependencies:**
-   ```bash
-   cd client
-   npm install
-   ```
+```bash
+cd client && npm install
+cd ../server && npm install
+```
 
-2. **Install server dependencies:**
-   ```bash
-   cd server
-   npm install
-   ```
+Start Postgres:
 
-3. **Start the development server:**
-   ```bash
-   # Terminal 1 - Start backend
-   cd server
-   npm run dev
-   
-   # Terminal 2 - Start frontend
-   cd client
-   npm run dev
-   ```
+```bash
+cd server
+npm run db:up
+```
 
-## 🏗️ Project Structure
+Start the apps in two terminals:
+
+```bash
+# Terminal 1 — backend
+cd server
+npm run dev
+
+# Terminal 2 — frontend
+cd client
+npm run dev
+```
+
+- Frontend: http://localhost:3000
+- Backend: http://localhost:5001
+
+## Project Structure
 
 ```
 DevTrack/
 ├── client/                 # React frontend
+│   ├── Dockerfile
+│   ├── nginx.conf          # Serves the built app and proxies /api
 │   ├── src/
-│   │   ├── components/    # Reusable components
-│   │   ├── pages/         # Page components
-│   │   ├── redux/         # Redux store and slices
-│   │   ├── App.jsx        # Main app component
-│   │   └── main.jsx       # Entry point
 │   └── package.json
 ├── server/                 # Node.js backend
-│   ├── server.js          # Custom HTTP server
+│   ├── Dockerfile
+│   ├── server.js
 │   └── package.json
+├── docker-compose.yml      # Frontend + backend + Postgres
 └── README.md
 ```
-
-
-
-

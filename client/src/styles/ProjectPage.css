@@ -7,8 +7,8 @@
 
 /* Project Page Header Styles */
 .project-page-header {
-  background: rgba(255, 107, 53, 0.1);
-  border: 1px solid #ff6b35;
+  background: rgba(245, 245, 245, 0.06);
+  border: 1px solid var(--border);
   border-radius: 12px;
   margin: 0 1rem 2rem 1rem;
   color: white;
@@ -34,9 +34,9 @@
 }
 
 .project-page-back-button {
-  background: rgba(255, 107, 53, 0.1);
-  border: 1px solid #ff6b35;
-  color: #ff6b35;
+  background: rgba(245, 245, 245, 0.06);
+  border: 1px solid var(--border);
+  color: var(--accent);
   padding: 0.5rem 1rem;
   border-radius: 6px;
   cursor: pointer;
@@ -46,8 +46,8 @@
 }
 
 .project-page-back-button:hover {
-  background: #ff6b35;
-  color: white;
+  background: var(--accent);
+  color: var(--accent-foreground);
   transform: translateX(-2px);
 }
 
@@ -69,27 +69,27 @@
 }
 
 .project-page-edit-btn {
-  background-color: rgba(255, 107, 53, 0.1);
-  border: 2px solid #ff6b35;
-  color: #ff6b35;
+  background-color: rgba(245, 245, 245, 0.06);
+  border: 1px solid var(--border-strong);
+  color: var(--accent);
 }
 
 .project-page-edit-btn:hover {
-  background-color: #ff6b35;
-  color: white;
+  background-color: var(--accent);
+  color: var(--accent-foreground);
 }
 
 .project-page-add-task-btn {
-  background-color: #ff6b35;
-  color: white;
-  border: 2px solid #ff6b35;
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+  border: 1px solid var(--border-strong);
 }
 
 .project-page-add-task-btn:hover {
-  background-color: #e55a2b;
-  border-color: #e55a2b;
+  background-color: var(--accent);
+  border-color: var(--accent);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+  box-shadow: 0 4px 12px rgba(245, 245, 245, 0.12);
 }
 
 /* Project Title Section - Left Aligned */
@@ -125,10 +125,7 @@
   margin: 0;
   margin-bottom: 0.5rem;
   line-height: 1.2;
-  background: linear-gradient(135deg, #ffffff 0%, #ff6b35 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--foreground);
 }
 
 .project-page-description {
@@ -153,8 +150,8 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: rgba(255, 107, 53, 0.1);
-  border: 1px solid rgba(255, 107, 53, 0.3);
+  background: rgba(245, 245, 245, 0.06);
+  border: 1px solid rgba(245, 245, 245, 0.12);
   padding: 1.25rem 1rem;
   border-radius: 12px;
   backdrop-filter: blur(10px);
@@ -253,8 +250,10 @@
 }
 
 .empty-icon {
-  font-size: 4rem;
+  color: var(--muted);
   margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
 }
 
 .empty-state h3 {
@@ -332,7 +331,7 @@
 
 .tasks-list.drag-over {
   background-color: rgba(255, 107, 53, 0.05);
-  border: 2px dashed #ff6b35;
+  border: 1px dashed var(--border-strong);
   border-radius: 8px;
 }
 

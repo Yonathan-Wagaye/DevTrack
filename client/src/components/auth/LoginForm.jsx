@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, Link } from 'react-router-dom'
 import { loginUser } from '../../redux/thunks/authThunks'
-import useSession from '../../hooks/useSession'
+import { saveSession } from '../../config/session'
 import '../../styles/AuthForms.css'
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { saveSession } = useSession();
 
   // Add form state
   const [formData, setFormData] = useState({

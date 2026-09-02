@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import { GitHubLogo, TaskIcon, ChartIcon, ClockIcon, FolderIcon, UserIcon, DevTrackLogo } from '../components/icons/Icons'
 import '../styles/HomePage.css'
 
 const HomePage = () => {
@@ -60,25 +61,33 @@ const HomePage = () => {
           <h2 className="section-title">Why Choose DevTrack?</h2>
           <div className="features-grid">
             <div className="feature-card">
-              <div className="feature-icon">📋</div>
+              <div className="feature-icon">
+                <TaskIcon size={20} />
+              </div>
               <h3>Task Management</h3>
               <p>Create, organize, and track development tasks with ease. Assign priorities, set due dates, and monitor progress across projects.</p>
             </div>
             
             <div className="feature-card">
-              <div className="feature-icon">📊</div>
+              <div className="feature-icon">
+                <ChartIcon size={20} />
+              </div>
               <h3>Progress Tracking</h3>
               <p>Visualize your productivity with charts and analytics. See how your tasks and commits contribute to project completion.</p>
             </div>
             
             <div className="feature-card">
-              <div className="feature-icon">🔗</div>
-              <h3>GitHub Integration</h3>
+              <div className="feature-icon">
+                <GitHubLogo size={20} />
+              </div>
+              <h3>GitHub</h3>
               <p>Automatically track your commits and coding activity. Connect your repositories and see your contribution history.</p>
             </div>
             
             <div className="feature-card">
-              <div className="feature-icon">⏱️</div>
+              <div className="feature-icon">
+                <ClockIcon size={20} />
+              </div>
               <h3>Time Tracking</h3>
               <p>Perfect for freelancers and remote workers. Track time spent on tasks and projects for accurate billing and productivity insights.</p>
             </div>
@@ -92,19 +101,25 @@ const HomePage = () => {
           <h2 className="section-title">How It Works</h2>
           <div className="steps-grid">
             <div className="step-card">
-              <div className="step-number">1</div>
+              <div className="step-number">
+                <UserIcon size={20} />
+              </div>
               <h3>Sign Up</h3>
               <p>Create your account in seconds. No complex setup required.</p>
             </div>
             
             <div className="step-card">
-              <div className="step-number">2</div>
+              <div className="step-number">
+                <FolderIcon size={20} />
+              </div>
               <h3>Add Projects</h3>
               <p>Create projects and connect your GitHub repositories for automatic commit tracking.</p>
             </div>
             
             <div className="step-card">
-              <div className="step-number">3</div>
+              <div className="step-number">
+                <TaskIcon size={20} />
+              </div>
               <h3>Start Tracking</h3>
               <p>Add tasks, track time, and watch your productivity metrics grow.</p>
             </div>
@@ -117,7 +132,10 @@ const HomePage = () => {
         <div className="container">
           <div className="footer-content">
             <div className="footer-brand">
-              <h3>DevTrack</h3>
+              <h3>
+                <DevTrackLogo size={22} />
+                DevTrack
+              </h3>
               <p>Your personal development productivity companion</p>
             </div>
             

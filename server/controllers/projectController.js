@@ -1,5 +1,4 @@
 import Project from '../models/Project.js'
-import User from '../models/User.js'
 
 // Create a new project
 export const createProject = async (req, res) => {
@@ -9,17 +8,6 @@ export const createProject = async (req, res) => {
     // Validate required fields
     if (!name || !name.trim()) {
       return res.status(400).json({ message: 'Project name is required' })
-    }
-
-    // Ensure user exists in our database (sync from Supabase)
-    try {
-      await User.findOrCreateByEmail({
-        email: req.user.email,
-        name: req.user.name
-      })
-    } catch (userError) {
-      console.error('❌ Error ensuring user exists:', userError)
-      return res.status(500).json({ message: 'Error syncing user data' })
     }
 
     // Parse GitHub URL if provided

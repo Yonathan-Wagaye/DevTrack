@@ -35,7 +35,7 @@
 
 .back-button:hover {
   background: #3a3a3a;
-  border-color: #ff6b35;
+  border-color: var(--accent);
   transform: translateY(-1px);
 }
 
@@ -43,10 +43,7 @@
   font-size: 2.5rem;
   font-weight: 700;
   margin: 0 0 0.5rem 0;
-  background: linear-gradient(135deg, #ffffff 0%, #ff6b35 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--foreground);
 }
 
 .header-text p {

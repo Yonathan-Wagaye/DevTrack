@@ -1,3 +1,5 @@
+name: devtrack
+
 services:
   postgres:
     image: postgres:16-alpine
@@ -18,7 +20,63 @@ services:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
       interval: 5s
       timeout: 5s
+      retries: 10
+    networks:
+      - devtrack
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: devtrack-server
+    restart: unless-stopped
+    env_file:
+      - ./server/.env
+    environment:
+      NODE_ENV: production
+      PORT: 5001
+      DB_HOST: postgres
+      DB_PORT: 5432
+      CLIENT_URL: http://localhost:3000
+    ports:
+      - "${PORT:-5001}:5001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:5001/health').then((r) => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
       retries: 5
+      start_period: 10s
+    networks:
+      - devtrack
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: /api
+    container_name: devtrack-client
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      server:
+        condition: service_healthy
+    networks:
+      - devtrack
+
+networks:
+  devtrack:
+    driver: bridge
 
 volumes:
   devtrack_postgres_data:
