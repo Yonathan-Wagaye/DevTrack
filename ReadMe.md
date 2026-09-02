@@ -2,7 +2,7 @@
 
 A productivity dashboard for developers to manage tasks and track GitHub commits.
 
-> Portfolio metadata for this project lives in [`portfolio.json`](./portfolio.json) at the repo root.
+
 
 ## Getting Started (Docker)
 
